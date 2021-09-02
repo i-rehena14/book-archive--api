@@ -10,16 +10,18 @@ const searchBooks = () => {
         .then(res => res.json())
         .then(data => displayResult(data.docs))
 }
-
+//display books
 const displayResult = books => {
 
 
     if (books.length > 0) {
         const searchResult = document.getElementById('search-result');
         searchResult.textContent = '';
+        document.getElementById('not-found').innerText = '';
 
         books.forEach(book => {
             const bookTitle = document.getElementById('search-field').value;
+
             const image = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
             const div = document.createElement('div');
             div.classList.add('col');
@@ -40,18 +42,24 @@ const displayResult = books => {
 
         //total result number
         const Result = document.getElementById('result-number');
+        Result.innerText = '';
         const h5 = document.createElement('h5');
         h5.innerText = `Result Found:${books.length}`;
         Result.appendChild(h5);
-        document.getElementById('not-found').style.display = 'none';
 
     }
+
     //not found result
     else {
+        document.getElementById('result-number').innerText = '';
+        document.getElementById('search-result').textContent = '';
         const notFound = document.getElementById('not-found');
+        notFound.innerText = '';
+
         const h3 = document.createElement('h3');
         h3.innerText = `No Result Found`;
         notFound.appendChild(h3);
+
     }
 
 }
